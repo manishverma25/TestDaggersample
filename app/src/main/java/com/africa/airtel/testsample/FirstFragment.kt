@@ -41,30 +41,32 @@ class FirstFragment : Fragment() {
 
 
         btn.setOnClickListener {
-
-
-            textview_second.text =    ""
+            textview_second.text = ""
             textview_third.text = ""
-
-
-            val subscriptionInfoList =  getSimSerialNumberWithOrWithoutFilter(this.requireContext())
-            subscriptionInfoList?.forEach { item ->
-
-                textview_second.text =   textview_second.text.toString() + "\n"+"Sim Serial : "+item.iccId  +" msisdn : "+item.number
-                Log.d("mvv","subscriptionInfoList  ${item}")
-                Log.d("mvv","subscriptionInfoList  item.iccId  ${item.iccId}   item.number ${item.number}")
-            }
-            textview_third.text = "Sim Serial : "+getSImSerial(this.requireContext())
+            fetchIccId()
         }
 
+        val subscriptionInfoList = getSimSerialNumberWithOrWithoutFilter(this.requireContext())
+        subscriptionInfoList?.forEach { item ->
+            Log.d("mvv", "subscriptionInfoList  ${item}")
+            Log.d("mvv",
+                "subscriptionInfoList  item.iccId  ${item.iccId}   item.number ${item.number}"
+            )
+        }
+        textview_third.text = "Sim Serial : " + getSImSerial(this.requireContext())
+        fetchIccId()
+    }
+
+    fun fetchIccId(){
         val subscriptionInfoList =  getSimSerialNumberWithOrWithoutFilter(this.requireContext())
         subscriptionInfoList?.forEach { item ->
 
-            textview_second.text =   textview_third.text.toString() + "\n"+"Sim Serial : "+item.iccId  +" msisdn : "+item.number
+            textview_second.text =   textview_second.text.toString() + "\n"+"IccId  : "+item.iccId  +" msisdn : "+item.number
             Log.d("mvv","subscriptionInfoList  ${item}")
             Log.d("mvv","subscriptionInfoList  item.iccId  ${item.iccId}   item.number ${item.number}")
         }
         textview_third.text = "Sim Serial : "+getSImSerial(this.requireContext())
+
     }
 
     fun getSImSerial(context: Context): String? {
